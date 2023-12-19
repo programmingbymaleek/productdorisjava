@@ -1,0 +1,95 @@
+primary key: table column which provides a unique record identify 
+
+Foreign Key: table column whose values references rows in another table:- it is also the foundation or relational databases
+
+index: data structure on a table to increase lookup speed  like the index of a book
+
+some commands in sql... 
+
+SHOW DATABASES; 
+CREATE DATABASE db_name; 
+USE db_name; 
+DROP DATABASE db_name;
+
+------creating tables -----------
+creating a table....... ie subjects..
+CREATE TABLE subjects (id INT(11) NOT NULL AUTO_INCREMENT,menu_name VARCHAR(255),position INT(3),visible TINYINT(1),PRIMARY KEY(id));  // for subjects table.. 
+CREATE TABLE pages (id INT(11) NOT NULL AUTO_INCREMENT,subject_id int(11),menu_name VARCHAR(255),position INT(3),visible TINYINT(1),PRIMARY KEY(id),content text);  // for pages table...
+
+since we are making subject_id the primary key, we use the following command after creating the pages table..
+
+ALTER TABLE pages ADD index fk_subject_id (subject_id); // where fk_subject_id stands for Foreign key from subjects table.. 
+
+SHOW TABLES subjects; 
+SHOW COLUMNS FROM subjects; //this displays the number of columns in the table subjects ; 
+DROP TABLE subjects.. //delete the table in the database
+
+
+...............selecting table examples..........
+SELECT * FROM table WHERE column1 = 'some_text' ORDER BY column1 ASC; 
+
+...........inserting into tables..................
+INSERT INTO table (col1,col2,col3) VALUES (val1,val2,val3);
+
+
+.........updating a table.....................
+
+UPDATE table
+SET col1 ='this', col2 ='that'
+WHERE id = 1; 
+
+.......delete a record from a table .........
+
+DELETE FROM table 
+WHERE id = 1; 
+
+..... Renaming a column name spelled wrong.....
+ALTER TABLE my_table
+RENAME COLUMN wrnog_column_name TO correct_column_name;
+
+
+ALTER TABLE business_customers
+RENAME COLUMN addrssLine3 TO addressLine3;
+
+
+
+
+
+-------granting access to users -------------- 
+
+//to grant access to the database lets say from our web Applications, we can use the command.. 
+to grant access use: GRANT ALL PRIVILEGES ON db_name.* To 'username'@'localhost' IDENTIFIED BY 'password';
+
+to view what grant is made available to user, you can use the command. SHOW GRANTS FOR 'username'@'localhost'; 
+
+
+-------------sql docker configurations------------------
+
+==========================================================================
+sql docker config
+run this command to start the sql server: docker run -d --name sql_server_test -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=letTheLightOfGodSchein2023' -p 1433:1433 mcr.microsoft.com/mssql/server:2022-latest
+
+to start mysql cli run this.. mssql -u sa -p
+Enter password: letTheLightOfGodSchein2023; 
+
+
+==================================
+using xampp. or maria DB 
+
+on terminal on the root directory, type: /Applications/xampp/xamppfiles/bin/mysql -u root and this should log you into the cli.. 
+if there is a password use /Applications/xampp/xamppfiles/bin/mysql -u root -p
+
+
+CREATE TABLE admin (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL,
+    password VARCHAR(100) NOT NULL,
+);
+
+
+
+create table foodproduct(id int(11) auto_increment primary key,sku varchar(255),description varchar(255),category varchar(255),price int(11)); 
+
+
+
+
